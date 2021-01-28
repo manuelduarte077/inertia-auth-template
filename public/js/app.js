@@ -5383,7 +5383,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // Import
 
 vue__WEBPACK_IMPORTED_MODULE_2__.default.mixin({
   methods: {
-    route: route
+    route: window.route
   }
 });
 vue__WEBPACK_IMPORTED_MODULE_2__.default.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.plugin);

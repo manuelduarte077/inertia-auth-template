@@ -5,7 +5,12 @@ import Vue from 'vue';
 import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue';
 import PortalVue from 'portal-vue';
 
-Vue.mixin({ methods: { route } });
+Vue.mixin({
+    methods: {
+        route: window.route
+   }
+});
+
 Vue.use(InertiaPlugin);
 Vue.use(PortalVue);
 
