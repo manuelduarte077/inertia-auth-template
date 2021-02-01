@@ -30,12 +30,16 @@ class AppServiceProvider extends ServiceProvider
         Inertia::share([
             "flash" => function () {
                 return [
-//                  "status" => session("status"),
-//                  "success" => session("success"),
-//                  "error" => session("error"),
+                    "status" => session("status"),
+                    "success" => session("success"),
+                    "error" => session("error"),
+                ];
+            },
+            "request" => function () {
+                return [
+                    "token" => request()->route("token"),
                 ];
             }
         ]);
-
     }
 }

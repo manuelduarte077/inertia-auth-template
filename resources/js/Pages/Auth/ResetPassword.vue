@@ -1,78 +1,96 @@
 <template>
     <auth-layout>
-        <template #logo>
-            <jet-authentication-card-logo />
+        <template #toolbar>
+            <section>
+                <h3 class="font-bold text-2xl">Bienvenid@</h3>
+                <p class="text-gray-600 pt-2">Crea una nueva contraseña</p>
+            </section>
         </template>
 
-        <jet-validation-errors class="mb-4" />
-
-        <form @submit.prevent="submit">
-            <div>
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
+        <form
+            @submit.prevent="updatePassword"
+            class="flex flex-col"
+        >
+            <div class="mb-6 pt-3 rounded bg-gray-200">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2 ml-3"
+                    for="email"
+                >
+                    Correo electrónico
+                </label>
+                <input
+                    v-model="form.email"
+                    id="email"
+                    class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
+                />
+                <div v-if="errors.email" class="text-red-500">{{ errors.email }}</div>
             </div>
-
-            <div class="mt-4">
-                <jet-label for="password" value="Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
+            <div class="mb-6 pt-3 rounded bg-gray-200">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2 ml-3"
+                    for="password"
+                >
+                    Tu nueva contraseña
+                </label>
+                <input
+                    v-model="form.password"
+                    type="password"
+                    id="password"
+                    class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
+                />
             </div>
-
-            <div class="mt-4">
-                <jet-label for="password_confirmation" value="Confirm Password" />
-                <jet-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
+            <div class="mb-6 pt-3 rounded bg-gray-200">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2 ml-3"
+                    for="password_confirmation"
+                >
+                    Confirma tu nueva contraseña
+                </label>
+                <input
+                    v-model="form.password_confirmation"
+                    type="password"
+                    id="password_confirmation"
+                    class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
+                />
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Reset Password
-                </jet-button>
-            </div>
+            <button
+                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+                type="submit"
+            >
+                Actualizar mi contraseña
+            </button>
         </form>
+
+        <template #footer>
+            <p class="text-white">¿Ya tienes una cuenta? <inertia-link :href="route('login')" class="font-bold hover:underline">¡Accede!</inertia-link></p>
+        </template>
     </auth-layout>
 </template>
 
 <script>
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo'
-    import JetButton from '@/Jetstream/Button'
-    import JetInput from '@/Jetstream/Input'
-    import JetLabel from '@/Jetstream/Label'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors'
-    import AuthLayout from "@/Layouts/AuthLayout";
-
-    export default {
-        components: {
-            AuthLayout,
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetLabel,
-            JetValidationErrors
-        },
-
-        props: {
-            email: String,
-            token: String,
-        },
-
-        data() {
-            return {
-                form: this.$inertia.form({
-                    token: this.token,
-                    email: this.email,
-                    password: '',
-                    password_confirmation: '',
-                })
-            }
-        },
-
-        methods: {
-            submit() {
-                this.form.post(this.route('password.update'), {
-                    onFinish: () => this.form.reset('password', 'password_confirmation'),
-                })
+import AuthLayout from "../../Layouts/AuthLayout";
+export default {
+    name: "ResetPassword",
+    components: {AuthLayout},
+    props: {
+        errors: Object,
+    },
+    data() {
+        return {
+            form: {
+                email: null,
+                password: null,
+                password_confirmation: null
             }
         }
+    },
+    methods: {
+        updatePassword() {
+            this.form.token = this.$page.request.token;
+            this.$inertia.post(this.route("password.update"), this.form).then(() => {
+
+            });
+        }
     }
+}
 </script>
