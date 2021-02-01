@@ -19,9 +19,11 @@
 <script>
     import AppLayout from '@/Layouts/AppLayout'
     import Welcome from '@/Jetstream/Welcome'
+    import FlashMessages from "@/Components/UI/FlashMessages";
 
     export default {
         components: {
+            FlashMessages,
             AppLayout,
             Welcome,
         },
