@@ -32709,6 +32709,11 @@ select {
           animation: bounce 1s infinite;
 }
 
+.body-bg {
+  background-color: #9921e8;
+  background-image: linear-gradient(315deg, #9921e8 0%, #5f72be 74%);
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
