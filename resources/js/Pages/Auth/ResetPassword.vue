@@ -1,5 +1,5 @@
 <template>
-    <jet-authentication-card>
+    <auth-layout>
         <template #logo>
             <jet-authentication-card-logo />
         </template>
@@ -28,7 +28,7 @@
                 </jet-button>
             </div>
         </form>
-    </jet-authentication-card>
+    </auth-layout>
 </template>
 
 <script>
@@ -38,9 +38,11 @@
     import JetInput from '@/Jetstream/Input'
     import JetLabel from '@/Jetstream/Label'
     import JetValidationErrors from '@/Jetstream/ValidationErrors'
+    import AuthLayout from "@/Layouts/AuthLayout";
 
     export default {
         components: {
+            AuthLayout,
             JetAuthenticationCard,
             JetAuthenticationCardLogo,
             JetButton,

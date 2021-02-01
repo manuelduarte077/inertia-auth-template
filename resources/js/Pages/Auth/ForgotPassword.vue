@@ -1,68 +1,65 @@
 <template>
-    <jet-authentication-card>
-        <template #logo>
-            <jet-authentication-card-logo />
+    <auth-layout>
+        <template #toolbar>
+            <section>
+                <h3 class="font-bold text-2xl">Bienvenid@</h3>
+                <p class="text-gray-600 pt-2">Utiliza el formulario para recuperar tu contraseña</p>
+            </section>
         </template>
 
-        <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
-        </div>
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
-        <jet-validation-errors class="mb-4" />
-
-        <form @submit.prevent="submit">
-            <div>
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
+        <form
+            @submit.prevent="requestPasswordLink"
+            class="flex flex-col"
+        >
+            <div class="mb-6 pt-3 rounded bg-gray-200">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2 ml-3"
+                    for="email"
+                >
+                    Introduce tu correo electrónico
+                </label>
+                <input
+                    v-model="form.email"
+                    id="email"
+                    class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
+                />
+                <div v-if="errors.email" class="text-red-500">{{ errors.email }}</div>
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Email Password Reset Link
-                </jet-button>
-            </div>
+            <button
+                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+                type="submit"
+            >
+                Recuperar mi contraseña
+            </button>
         </form>
-    </jet-authentication-card>
+
+        <template #footer>
+            <p class="text-white">¿Has recordado tu contraseña? <inertia-link :href="route('login')" class="font-bold hover:underline">¡Accede a tu cuenta!</inertia-link></p>
+        </template>
+    </auth-layout>
 </template>
 
 <script>
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo'
-    import JetButton from '@/Jetstream/Button'
-    import JetInput from '@/Jetstream/Input'
-    import JetLabel from '@/Jetstream/Label'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors'
-
-    export default {
-        components: {
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetLabel,
-            JetValidationErrors
-        },
-
-        props: {
-            status: String
-        },
-
-        data() {
-            return {
-                form: this.$inertia.form({
-                    email: ''
-                })
-            }
-        },
-
-        methods: {
-            submit() {
-                this.form.post(this.route('password.email'))
+import AuthLayout from "../../Layouts/AuthLayout";
+export default {
+    name: "PasswordResetLink",
+    components: {AuthLayout},
+    props: {
+        errors: Object,
+    },
+    data() {
+        return {
+            form: {
+                email: null
             }
         }
+    },
+    methods: {
+        requestPasswordLink() {
+            this.$inertia.post(this.route("password.email"), this.form).then(() => {
+
+            })
+        }
     }
+}
 </script>

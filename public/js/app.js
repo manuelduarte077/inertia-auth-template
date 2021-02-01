@@ -4021,12 +4021,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _Jetstream_AuthenticationCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/AuthenticationCard */ "./resources/js/Jetstream/AuthenticationCard.vue");
-/* harmony import */ var _Jetstream_AuthenticationCardLogo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/AuthenticationCardLogo */ "./resources/js/Jetstream/AuthenticationCardLogo.vue");
-/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
-/* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
-/* harmony import */ var _Jetstream_Label__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/Label */ "./resources/js/Jetstream/Label.vue");
-/* harmony import */ var _Jetstream_ValidationErrors__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/ValidationErrors */ "./resources/js/Jetstream/ValidationErrors.vue");
+/* harmony import */ var _Layouts_AuthLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Layouts/AuthLayout */ "./resources/js/Layouts/AuthLayout.vue");
 //
 //
 //
@@ -4058,34 +4053,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
-
-
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "PasswordResetLink",
   components: {
-    JetAuthenticationCard: _Jetstream_AuthenticationCard__WEBPACK_IMPORTED_MODULE_0__.default,
-    JetAuthenticationCardLogo: _Jetstream_AuthenticationCardLogo__WEBPACK_IMPORTED_MODULE_1__.default,
-    JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__.default,
-    JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_3__.default,
-    JetLabel: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_4__.default,
-    JetValidationErrors: _Jetstream_ValidationErrors__WEBPACK_IMPORTED_MODULE_5__.default
+    AuthLayout: _Layouts_AuthLayout__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
-    status: String
+    errors: Object
   },
   data: function data() {
     return {
-      form: this.$inertia.form({
-        email: ''
-      })
+      form: {
+        email: null
+      }
     };
   },
   methods: {
-    submit: function submit() {
-      this.form.post(this.route('password.email'));
+    requestPasswordLink: function requestPasswordLink() {
+      this.$inertia.post(this.route("password.email"), this.form).then(function () {});
     }
   }
 });
@@ -4347,6 +4343,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
 /* harmony import */ var _Jetstream_Label__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/Label */ "./resources/js/Jetstream/Label.vue");
 /* harmony import */ var _Jetstream_ValidationErrors__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/ValidationErrors */ "./resources/js/Jetstream/ValidationErrors.vue");
+/* harmony import */ var _Layouts_AuthLayout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Layouts/AuthLayout */ "./resources/js/Layouts/AuthLayout.vue");
 //
 //
 //
@@ -4380,6 +4377,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -4388,6 +4386,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
+    AuthLayout: _Layouts_AuthLayout__WEBPACK_IMPORTED_MODULE_6__.default,
     JetAuthenticationCard: _Jetstream_AuthenticationCard__WEBPACK_IMPORTED_MODULE_0__.default,
     JetAuthenticationCardLogo: _Jetstream_AuthenticationCardLogo__WEBPACK_IMPORTED_MODULE_1__.default,
     JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__.default,
@@ -33214,13 +33213,47 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "jet-authentication-card",
+    "auth-layout",
     {
       scopedSlots: _vm._u([
         {
-          key: "logo",
+          key: "toolbar",
           fn: function() {
-            return [_c("jet-authentication-card-logo")]
+            return [
+              _c("section", [
+                _c("h3", { staticClass: "font-bold text-2xl" }, [
+                  _vm._v("Bienvenid@")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-gray-600 pt-2" }, [
+                  _vm._v("Utiliza el formulario para recuperar tu contraseña")
+                ])
+              ])
+            ]
+          },
+          proxy: true
+        },
+        {
+          key: "footer",
+          fn: function() {
+            return [
+              _c(
+                "p",
+                { staticClass: "text-white" },
+                [
+                  _vm._v("¿Has recordado tu contraseña? "),
+                  _c(
+                    "inertia-link",
+                    {
+                      staticClass: "font-bold hover:underline",
+                      attrs: { href: _vm.route("login") }
+                    },
+                    [_vm._v("¡Accede a tu cuenta!")]
+                  )
+                ],
+                1
+              )
+            ]
           },
           proxy: true
         }
@@ -33228,81 +33261,74 @@ var render = function() {
     },
     [
       _vm._v(" "),
-      _c("div", { staticClass: "mb-4 text-sm text-gray-600" }, [
-        _vm._v(
-          "\n        Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.\n    "
-        )
-      ]),
-      _vm._v(" "),
-      _vm.status
-        ? _c(
-            "div",
-            { staticClass: "mb-4 font-medium text-sm text-green-600" },
-            [_vm._v("\n        " + _vm._s(_vm.status) + "\n    ")]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c("jet-validation-errors", { staticClass: "mb-4" }),
-      _vm._v(" "),
       _c(
         "form",
         {
+          staticClass: "flex flex-col",
           on: {
             submit: function($event) {
               $event.preventDefault()
-              return _vm.submit($event)
+              return _vm.requestPasswordLink($event)
             }
           }
         },
         [
-          _c(
-            "div",
-            [
-              _c("jet-label", { attrs: { for: "email", value: "Email" } }),
-              _vm._v(" "),
-              _c("jet-input", {
-                staticClass: "mt-1 block w-full",
-                attrs: {
-                  id: "email",
-                  type: "email",
-                  required: "",
-                  autofocus: ""
-                },
-                model: {
+          _c("div", { staticClass: "mb-6 pt-3 rounded bg-gray-200" }, [
+            _c(
+              "label",
+              {
+                staticClass: "block text-gray-700 text-sm font-bold mb-2 ml-3",
+                attrs: { for: "email" }
+              },
+              [
+                _vm._v(
+                  "\n                Introduce tu correo electrónico\n            "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
                   value: _vm.form.email,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "email", $$v)
-                  },
                   expression: "form.email"
                 }
-              })
-            ],
-            1
-          ),
+              ],
+              staticClass:
+                "bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3",
+              attrs: { id: "email" },
+              domProps: { value: _vm.form.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "email", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.email
+              ? _c("div", { staticClass: "text-red-500" }, [
+                  _vm._v(_vm._s(_vm.errors.email))
+                ])
+              : _vm._e()
+          ]),
           _vm._v(" "),
           _c(
-            "div",
-            { staticClass: "flex items-center justify-end mt-4" },
-            [
-              _c(
-                "jet-button",
-                {
-                  class: { "opacity-25": _vm.form.processing },
-                  attrs: { disabled: _vm.form.processing }
-                },
-                [
-                  _vm._v(
-                    "\n                Email Password Reset Link\n            "
-                  )
-                ]
-              )
-            ],
-            1
+            "button",
+            {
+              staticClass:
+                "bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("\n            Recuperar mi contraseña\n        ")]
           )
         ]
       )
-    ],
-    1
+    ]
   )
 }
 var staticRenderFns = []
@@ -33778,7 +33804,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "jet-authentication-card",
+    "auth-layout",
     {
       scopedSlots: _vm._u([
         {
