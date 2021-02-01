@@ -1,95 +1,117 @@
 <template>
-    <jet-authentication-card>
-        <template #logo>
-            <jet-authentication-card-logo />
+    <auth-layout>
+        <template #toolbar>
+            <section>
+                <h3 class="font-bold text-2xl">Bienvenid@</h3>
+                <p class="text-gray-600 pt-2">Crea tu cuenta</p>
+            </section>
         </template>
 
-        <jet-validation-errors class="mb-4" />
-
-        <form @submit.prevent="submit">
-            <div>
-                <jet-label for="name" value="Name" />
-                <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
+        <form
+            @submit.prevent="register"
+            class="flex flex-col"
+        >
+            <div class="mb-6 pt-3 rounded bg-gray-200">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2 ml-3"
+                    for="name"
+                >
+                    Nombre
+                </label>
+                <input
+                    v-model="form.name"
+                    id="name"
+                    class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
+                />
+                <div v-if="errors.name" class="text-red-500">{{ errors.name }}</div>
             </div>
 
-            <div class="mt-4">
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required />
+            <div class="mb-6 pt-3 rounded bg-gray-200">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2 ml-3"
+                    for="email"
+                >
+                    Correo electrónico
+                </label>
+                <input
+                    v-model="form.email"
+                    id="email"
+                    class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
+                />
+                <div v-if="errors.email" class="text-red-500">{{ errors.email }}</div>
             </div>
 
-            <div class="mt-4">
-                <jet-label for="password" value="Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
+            <div class="mb-6 pt-3 rounded bg-gray-200">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2 ml-3"
+                    for="password"
+                >
+                    Contraseña
+                </label>
+                <input
+                    v-model="form.password"
+                    type="password"
+                    id="password"
+                    class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
+                />
+                <div v-if="errors.password" class="text-red-500">{{ errors.password }}</div>
             </div>
 
-            <div class="mt-4">
-                <jet-label for="password_confirmation" value="Confirm Password" />
-                <jet-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
+            <div class="mb-6 pt-3 rounded bg-gray-200">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2 ml-3"
+                    for="password_confirmation"
+                >
+                    Confirma la contraseña
+                </label>
+                <input
+                    v-model="form.password_confirmation"
+                    type="password"
+                    id="password_confirmation"
+                    class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
+                />
             </div>
 
-            <div class="mt-4" v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature">
-                <jet-label for="terms">
-                    <div class="flex items-center">
-                        <jet-checkbox name="terms" id="terms" v-model="form.terms" />
-
-                        <div class="ml-2">
-                            I agree to the <a target="_blank" :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Terms of Service</a> and <a target="_blank" :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a>
-                        </div>
-                    </div>
-                </jet-label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <inertia-link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Already registered?
-                </inertia-link>
-
-                <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
-                </jet-button>
-            </div>
+            <button
+                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+                type="submit"
+            >
+                Crear mi cuenta
+            </button>
         </form>
-    </jet-authentication-card>
+
+        <template #footer>
+            <p class="text-white">
+                ¿Ya tienes una cuenta? <inertia-link :href="route('login')" class="font-bold hover:underline">¡Accede!</inertia-link>
+            </p>
+        </template>
+    </auth-layout>
 </template>
-
 <script>
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo'
-    import JetButton from '@/Jetstream/Button'
-    import JetInput from '@/Jetstream/Input'
-    import JetCheckbox from "@/Jetstream/Checkbox";
-    import JetLabel from '@/Jetstream/Label'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors'
-
-    export default {
-        components: {
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetCheckbox,
-            JetLabel,
-            JetValidationErrors
-        },
-
-        data() {
-            return {
-                form: this.$inertia.form({
-                    name: '',
-                    email: '',
-                    password: '',
-                    password_confirmation: '',
-                    terms: false,
-                })
-            }
-        },
-
-        methods: {
-            submit() {
-                this.form.post(this.route('register'), {
-                    onFinish: () => this.form.reset('password', 'password_confirmation'),
-                })
+import AuthLayout from "../../Layouts/AuthLayout";
+export default {
+    components: {AuthLayout},
+    props: {
+        errors: Object,
+    },
+    data() {
+        return {
+            processing: false,
+            form: {
+                name: null,
+                email: null,
+                password: null,
+                password_confirmation: null,
             }
         }
+    },
+    methods: {
+        register() {
+            this.processing = true;
+            this.$inertia.post(this.route("register"), this.form).then(() => {
+                this.processing = false;
+            });
+        }
     }
+}
 </script>
