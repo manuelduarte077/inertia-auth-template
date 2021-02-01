@@ -223,7 +223,6 @@
 
             <!-- Page Content -->
             <main>
-                <flash-messages />
                 <slot></slot>
             </main>
 
@@ -241,11 +240,9 @@
     import JetDropdownLink from '@/Jetstream/DropdownLink'
     import JetNavLink from '@/Jetstream/NavLink'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
-    import FlashMessages from "@/Components/UI/FlashMessages";
 
     export default {
         components: {
-            FlashMessages,
             JetApplicationMark,
             JetBanner,
             JetDropdown,

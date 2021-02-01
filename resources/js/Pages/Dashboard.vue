@@ -25,7 +25,6 @@
     export default {
         components: {
             BackendLayout,
-            FlashMessages,
             AppLayout,
             Welcome,
         },

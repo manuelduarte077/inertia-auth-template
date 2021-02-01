@@ -3244,7 +3244,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_DropdownLink__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/DropdownLink */ "./resources/js/Jetstream/DropdownLink.vue");
 /* harmony import */ var _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/NavLink */ "./resources/js/Jetstream/NavLink.vue");
 /* harmony import */ var _Jetstream_ResponsiveNavLink__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/ResponsiveNavLink */ "./resources/js/Jetstream/ResponsiveNavLink.vue");
-/* harmony import */ var _Components_UI_FlashMessages__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Components/UI/FlashMessages */ "./resources/js/Components/UI/FlashMessages.vue");
 //
 //
 //
@@ -3480,8 +3479,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-
 
 
 
@@ -3490,7 +3487,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    FlashMessages: _Components_UI_FlashMessages__WEBPACK_IMPORTED_MODULE_6__.default,
     JetApplicationMark: _Jetstream_ApplicationMark__WEBPACK_IMPORTED_MODULE_0__.default,
     JetBanner: _Jetstream_Banner__WEBPACK_IMPORTED_MODULE_1__.default,
     JetDropdown: _Jetstream_Dropdown__WEBPACK_IMPORTED_MODULE_2__.default,
@@ -4107,20 +4103,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _Jetstream_AuthenticationCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/AuthenticationCard */ "./resources/js/Jetstream/AuthenticationCard.vue");
-/* harmony import */ var _Jetstream_AuthenticationCardLogo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/AuthenticationCardLogo */ "./resources/js/Jetstream/AuthenticationCardLogo.vue");
-/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
-/* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
-/* harmony import */ var _Jetstream_Checkbox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/Checkbox */ "./resources/js/Jetstream/Checkbox.vue");
-/* harmony import */ var _Jetstream_Label__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/Label */ "./resources/js/Jetstream/Label.vue");
-/* harmony import */ var _Jetstream_ValidationErrors__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/ValidationErrors */ "./resources/js/Jetstream/ValidationErrors.vue");
-/* harmony import */ var _Layouts_AuthLayout__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Layouts/AuthLayout */ "./resources/js/Layouts/AuthLayout.vue");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/* harmony import */ var _Layouts_AuthLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Layouts/AuthLayout */ "./resources/js/Layouts/AuthLayout.vue");
 //
 //
 //
@@ -4164,51 +4147,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
-
-
-
-
-
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "Login",
   components: {
-    AuthLayout: _Layouts_AuthLayout__WEBPACK_IMPORTED_MODULE_7__.default,
-    JetAuthenticationCard: _Jetstream_AuthenticationCard__WEBPACK_IMPORTED_MODULE_0__.default,
-    JetAuthenticationCardLogo: _Jetstream_AuthenticationCardLogo__WEBPACK_IMPORTED_MODULE_1__.default,
-    JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__.default,
-    JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_3__.default,
-    JetCheckbox: _Jetstream_Checkbox__WEBPACK_IMPORTED_MODULE_4__.default,
-    JetLabel: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_5__.default,
-    JetValidationErrors: _Jetstream_ValidationErrors__WEBPACK_IMPORTED_MODULE_6__.default
+    AuthLayout: _Layouts_AuthLayout__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
-    canResetPassword: Boolean,
-    status: String
+    errors: Object
   },
   data: function data() {
     return {
-      form: this.$inertia.form({
-        email: '',
-        password: '',
-        remember: false
-      })
+      form: {
+        email: null,
+        password: null
+      }
     };
   },
   methods: {
-    submit: function submit() {
-      var _this = this;
-
-      this.form.transform(function (data) {
-        return _objectSpread(_objectSpread({}, data), {}, {
-          remember: _this.form.remember ? 'on' : ''
-        });
-      }).post(this.route('login'), {
-        onFinish: function onFinish() {
-          return _this.form.reset('password');
-        }
-      });
+    login: function login() {
+      this.$inertia.post(this.route("login"), this.form).then(function () {});
     }
   }
 });
@@ -4646,7 +4627,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     BackendLayout: _Layouts_BackendLayout__WEBPACK_IMPORTED_MODULE_3__.default,
-    FlashMessages: _Components_UI_FlashMessages__WEBPACK_IMPORTED_MODULE_2__.default,
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     Welcome: _Jetstream_Welcome__WEBPACK_IMPORTED_MODULE_1__.default
   }
@@ -32359,7 +32339,7 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("main", [_c("flash-messages"), _vm._v(" "), _vm._t("default")], 2),
+          _c("main", [_vm._t("default")], 2),
           _vm._v(" "),
           _c("portal-target", { attrs: { name: "modal", multiple: "" } })
         ],
@@ -33353,9 +33333,43 @@ var render = function() {
     {
       scopedSlots: _vm._u([
         {
-          key: "logo",
+          key: "toolbar",
           fn: function() {
-            return [_c("jet-authentication-card-logo")]
+            return [
+              _c("section", [
+                _c("h3", { staticClass: "font-bold text-2xl" }, [
+                  _vm._v("Bienvenid@")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-gray-600 pt-2" }, [
+                  _vm._v("Inicia sesión en tu cuenta")
+                ])
+              ])
+            ]
+          },
+          proxy: true
+        },
+        {
+          key: "footer",
+          fn: function() {
+            return [
+              _c(
+                "p",
+                { staticClass: "text-white" },
+                [
+                  _vm._v("\n            ¿No tienes una cuenta? "),
+                  _c(
+                    "inertia-link",
+                    {
+                      staticClass: "font-bold hover:underline",
+                      attrs: { href: _vm.route("register") }
+                    },
+                    [_vm._v("¡Regístrate!")]
+                  )
+                ],
+                1
+              )
+            ]
           },
           proxy: true
         }
@@ -33363,140 +33377,125 @@ var render = function() {
     },
     [
       _vm._v(" "),
-      _c("jet-validation-errors", { staticClass: "mb-4" }),
-      _vm._v(" "),
-      _vm.status
-        ? _c(
-            "div",
-            { staticClass: "mb-4 font-medium text-sm text-green-600" },
-            [_vm._v("\n        " + _vm._s(_vm.status) + "\n    ")]
-          )
-        : _vm._e(),
-      _vm._v(" "),
       _c(
         "form",
         {
+          staticClass: "flex flex-col",
           on: {
             submit: function($event) {
               $event.preventDefault()
-              return _vm.submit($event)
+              return _vm.login($event)
             }
           }
         },
         [
-          _c(
-            "div",
-            [
-              _c("jet-label", { attrs: { for: "email", value: "Email" } }),
-              _vm._v(" "),
-              _c("jet-input", {
-                staticClass: "mt-1 block w-full",
-                attrs: {
-                  id: "email",
-                  type: "email",
-                  required: "",
-                  autofocus: ""
-                },
-                model: {
-                  value: _vm.form.email,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "email", $$v)
-                  },
-                  expression: "form.email"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "mt-4" },
-            [
-              _c("jet-label", {
-                attrs: { for: "password", value: "Password" }
-              }),
-              _vm._v(" "),
-              _c("jet-input", {
-                staticClass: "mt-1 block w-full",
-                attrs: {
-                  id: "password",
-                  type: "password",
-                  required: "",
-                  autocomplete: "current-password"
-                },
-                model: {
-                  value: _vm.form.password,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "password", $$v)
-                  },
-                  expression: "form.password"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "block mt-4" }, [
+          _c("div", { staticClass: "mb-6 pt-3 rounded bg-gray-200" }, [
             _c(
               "label",
-              { staticClass: "flex items-center" },
-              [
-                _c("jet-checkbox", {
-                  attrs: { name: "remember" },
-                  model: {
-                    value: _vm.form.remember,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "remember", $$v)
-                    },
-                    expression: "form.remember"
-                  }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "ml-2 text-sm text-gray-600" }, [
-                  _vm._v("Remember me")
-                ])
+              {
+                staticClass: "block text-gray-700 text-sm font-bold mb-2 ml-3",
+                attrs: { for: "email" }
+              },
+              [_vm._v("\n                Correo electrónico\n            ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.email,
+                  expression: "form.email"
+                }
               ],
-              1
-            )
+              staticClass:
+                "bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3",
+              attrs: { id: "email" },
+              domProps: { value: _vm.form.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "email", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.email
+              ? _c("div", { staticClass: "text-red-500" }, [
+                  _vm._v(_vm._s(_vm.errors.email))
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mb-6 pt-3 rounded bg-gray-200" }, [
+            _c(
+              "label",
+              {
+                staticClass: "block text-gray-700 text-sm font-bold mb-2 ml-3",
+                attrs: { for: "password" }
+              },
+              [_vm._v("\n                Contraseña\n            ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.password,
+                  expression: "form.password"
+                }
+              ],
+              staticClass:
+                "bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3",
+              attrs: { type: "password", id: "password" },
+              domProps: { value: _vm.form.password },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "password", $event.target.value)
+                }
+              }
+            })
           ]),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "flex items-center justify-end mt-4" },
+            { staticClass: "flex justify-end" },
             [
-              _vm.canResetPassword
-                ? _c(
-                    "inertia-link",
-                    {
-                      staticClass:
-                        "underline text-sm text-gray-600 hover:text-gray-900",
-                      attrs: { href: _vm.route("password.request") }
-                    },
-                    [
-                      _vm._v(
-                        "\n                Forgot your password?\n            "
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
               _c(
-                "jet-button",
+                "inertia-link",
                 {
-                  staticClass: "ml-4",
-                  class: { "opacity-25": _vm.form.processing },
-                  attrs: { disabled: _vm.form.processing }
+                  staticClass:
+                    "text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6",
+                  attrs: { href: _vm.route("password.request") }
                 },
-                [_vm._v("\n                Login\n            ")]
+                [
+                  _vm._v(
+                    "\n                ¿Has olvidado tu contraseña?\n            "
+                  )
+                ]
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("\n            Iniciar sesión\n        ")]
           )
         ]
       )
-    ],
-    1
+    ]
   )
 }
 var staticRenderFns = []

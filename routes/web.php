@@ -28,8 +28,3 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-
-Route::get("/flash", function () {
-    session()->flash("error", "¡¡¡¡Nueva Sesión success!!!!");
-    return redirect(route("dashboard"));
-});
