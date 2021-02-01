@@ -1,5 +1,5 @@
 <template>
-    <app-layout>
+    <backend-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Dashboard
@@ -13,16 +13,18 @@
                 </div>
             </div>
         </div>
-    </app-layout>
+    </backend-layout>
 </template>
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
     import Welcome from '@/Jetstream/Welcome'
     import FlashMessages from "@/Components/UI/FlashMessages";
+    import BackendLayout from "@/Layouts/BackendLayout";
 
     export default {
         components: {
+            BackendLayout,
             FlashMessages,
             AppLayout,
             Welcome,
